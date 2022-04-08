@@ -5,67 +5,64 @@ let blockBoard = false;
 let contadorJogadas = 0;
 let totalNumberCards = Number(prompt("Digite o número de cartas"));
 const stringCards = ['bobross','explody','fiesta','metal','revertit','triplets','unicorn']
-window.onload = addCards()
+let blockTimer = false
+let timer = Number(document.querySelector('p').innerHTML)
+let clock;
+addCards()
 
-//flipar cartas
 function flipcard (element) {
     if(blockBoard === true) {
         return
-    }
-    if (element === firstCard){
-        return
-    }
-    if (totalNumberCards !== document.querySelectorAll('.flip').length){
+    }  
+    timerStart()
         if (flippedCard === false) {
             flippedCard  = true;
             firstCard = element;
-            element.classList.add('flip')
-            contadorJogadas++
+            flipPlay(element)
+
         } else {
             flippedCard = false;
             secondCard = element;
-            element.classList.add('flip')
+            flipPlay(element)
             blockBoard=true
             checkMatch()
-            contadorJogadas++ 
-           
-        } if(totalNumberCards === document.querySelectorAll('.flip').length){setTimeout(()=>{
-            alert(`Você venceu em ${contadorJogadas}`)
-            let restart = prompt('Gostaria de reiniciar a partida?')
-            if (restart === 'sim'){
-                totalNumberCards = Number(prompt("Digite o número de cartas"))
-                console.log(totalNumberCards)
-                addCards()
-                contadorJogadas=0
-            }
-        },400) 
+        } if(totalNumberCards === document.querySelectorAll('.flip').length){
+            setTimeout(winGame,400) 
+        }
     }
-}
+function flipPlay(selectedCard){
+    selectedCard.classList.add('flip')
+    contadorJogadas++ 
 }
 
 function checkMatch (){
-    
     if (firstCard.classList.value !== secondCard.classList.value){
-        setTimeout(() => {
-            firstCard.classList.remove('flip')
-            secondCard.classList.remove('flip')
-            blockBoard = false
-        }, 1000);  
+        setTimeout(unflipCards, 1000);  
         
-    }  else {setTimeout(() => {
-        blockBoard = false
-        
-    }, 1000);}
-    
+    }  else {setTimeout(blockBoard=false, 1000)      
+    }
+}
+function unflipCards(){
+        firstCard.classList.remove('flip')
+        secondCard.classList.remove('flip')
+        blockBoard = false 
+}
+
+
+function winGame () {
+        alert(`Você venceu em ${contadorJogadas} jogadas e em ${timer} segundos`)
+        let restart = prompt('Gostaria de reiniciar a partida?')
+        if (restart === 'sim'){
+            reset ()
+        }
 }
 
 function reset (){
-    [flippedCard, block] = [false, false]
-    [firstCard, secondCard] = [null,null]
-}
-function winGame(){
-    
-     
+    totalNumberCards = Number(prompt("Digite o número de cartas"))
+    contadorJogadas=0
+    document.querySelector('p').innerHTML = 0
+    blockTimer = false
+    addCards()
 }
 
 function addCards() {
@@ -95,9 +92,24 @@ function addCards() {
 //embaralahar cartas
 function shufle(number){
     let cards = document.querySelectorAll('.card')
-    
     cards.forEach(card => {
         let randomPos = Math.floor(Math.random()*number) 
         card.style.order = randomPos;
     });
+}
+
+function timerStart(){
+    if(blockTimer === false){
+        blockTimer = true
+        clock = setInterval(timerPlus, 1000)
+    } else return
+}
+   
+function timerPlus (){   
+    timer = Number(document.querySelector('p').innerHTML)
+    timer ++;
+    document.querySelector('p').innerHTML = timer
+    if (totalNumberCards === document.querySelectorAll('.flip').length){
+    clearInterval(clock)
+    } 
 }

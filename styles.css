@@ -16,8 +16,7 @@ body{
 
 
 .title {
-     margin: 40px 0;
-     text-align: center;
+
 }
 img {
     width: 100px;
@@ -26,7 +25,7 @@ img {
 }
 .gameboard{
     display: flex;
-    
+   
     justify-content: center;
     column-gap: 34px;
     max-width: 1036px;
@@ -44,12 +43,11 @@ img {
     transform: scale(1);
     transform-style: preserve-3d;
     transition: transform .8s;
+    
 }
 
 .card:active{
     transform:scale(.97);
-    
-    
 }
 
 .frontFace{ 
@@ -79,14 +77,36 @@ img {
 }
 .card.flip{
     transform: rotateY(180deg);
+    pointer-events: none;
   
 }
+header{
+    display:flex;
+    align-items: center;
+    margin: 40px 0;
+    text-align: center;
+    min-width: 100%;
+    justify-content: center;
+}
+.timer{
+   position: fixed;
+   top: 30px;
+   right: 10%;
+   font-size: 36px;
+}
 
-@media (max-width: 614px){
-  
+@media (max-width: 1000px){
+    header{
+        flex-direction: column;
+        row-gap: 20px;
+        font-size: 36px;        
+    }
     .gameboard{
         flex-direction: column;
         flex-wrap: nowrap;
         align-items: center;
+    }
+    .timer{
+        position: inherit;
     }
 }
