@@ -2,7 +2,9 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    user-select: none;
 }
+
 body{
     background-color: #eef9bf;
     color: #75b79e;
@@ -14,10 +16,6 @@ body{
     align-items: center;
 }
 
-
-.title {
-
-}
 img {
     width: 100px;
     height: 100px;
@@ -25,7 +23,6 @@ img {
 }
 .gameboard{
     display: flex;
-   
     justify-content: center;
     column-gap: 34px;
     max-width: 1036px;
@@ -33,6 +30,7 @@ img {
     min-height: 360px ;
     flex-wrap: wrap;
     perspective: 1000px;
+    grid-row: 1 / span 2;
 }
 .card{ 
     min-width: 118px;
@@ -43,7 +41,7 @@ img {
     transform: scale(1);
     transform-style: preserve-3d;
     transition: transform .8s;
-    
+    cursor: pointer;
 }
 
 .card:active{

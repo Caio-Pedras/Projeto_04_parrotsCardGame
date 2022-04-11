@@ -30,6 +30,7 @@ function flipcard (element) {
             setTimeout(winGame,400) 
         }
     }
+
 function flipPlay(selectedCard){
     selectedCard.classList.add('flip')
     contadorJogadas++ 
@@ -48,8 +49,8 @@ function unflipCards(){
         blockBoard = false 
 }
 
-
 function winGame () {
+        clearInterval(clock)
         alert(`Você venceu em ${contadorJogadas} jogadas e em ${timer} segundos`)
         let restart = prompt('Gostaria de reiniciar a partida?')
         if (restart === 'sim'){
@@ -66,12 +67,12 @@ function reset (){
 }
 
 function addCards() {
-
     if (totalNumberCards>= 4 && totalNumberCards <= 14 && totalNumberCards%2 === 0){
         let gameBoard = document.querySelector(".gameboard")
         gameBoard.innerHTML =[]
         
         for (let i = 0; i < totalNumberCards/2; i++){
+           
             let cardLayout =`<div class="card ${stringCards[i]}" onclick="flipcard(this)">
             <div class="frontFace">
                 <img src="./Imagens/front.png" >
@@ -89,7 +90,6 @@ function addCards() {
         shufle(totalNumberCards)
 }
 
-//embaralahar cartas
 function shufle(number){
     let cards = document.querySelectorAll('.card')
     cards.forEach(card => {
@@ -109,7 +109,4 @@ function timerPlus (){
     timer = Number(document.querySelector('p').innerHTML)
     timer ++;
     document.querySelector('p').innerHTML = timer
-    if (totalNumberCards === document.querySelectorAll('.flip').length){
-    clearInterval(clock)
-    } 
 }
