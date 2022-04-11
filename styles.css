@@ -30,7 +30,7 @@ img {
     min-height: 360px ;
     flex-wrap: wrap;
     perspective: 1000px;
-    grid-row: 1 / span 2;
+   
 }
 .card{ 
     min-width: 118px;
